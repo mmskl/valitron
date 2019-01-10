@@ -1020,7 +1020,8 @@ class Validator
             }
             return array($values, true);
         } // Dead end, abort
-        elseif ($identifier === null || ! isset($data[$identifier])) {
+        // check if $data is stdClass leaf
+        elseif ($identifier === null || $data instanceof \stdClass || ! isset($data[$identifier])) {
             if ($allow_empty){
                 //when empty values are allowed, we only care if the key exists
                 return array(null, array_key_exists($identifier, $data));
